@@ -3,6 +3,7 @@
   1. [Python 3.10](https://www.python.org/).
   2. [Либки](https://pypi.org/).
   3. [PEP-8](https://www.python.org/dev/peps/pep-0008/).
+  4. [Структура проекта](https://docs.python.org/3/tutorial/modules.html).
 ## QT
   1. [Qt Creator](https://www.qt.io/download-open-source?hsCtaTracking=9f6a2170-a938-42df-a8e2-a9f0b1d6cdce%7C6cb0de4f-9bb5-4778-ab02-bfb62735f3e5).
   2. [Документация](https://doc.qt.io/qtforpython/).
