@@ -1,0 +1,19 @@
+Server: nginx
+Date: Sun, 19 Dec 2021 01:53:37 GMT
+Content-Type: text/html; charset=windows-1251
+Vary: Accept-Encoding
+X-Powered-By: PHP/7.3.20
+Set-Cookie: onlinetrade=8ec88bc94cb5a9faeb6575156224b58f; expires=Wed, 19-Jan-2022 01:53:37 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru; HttpOnly
+Set-Cookie: session_id=4213dd6fd175c1098ffa1a19a2777e7d; expires=Wed, 19-Jan-2022 01:53:37 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru; HttpOnly
+Set-Cookie: user_city=1; expires=Wed, 19-Jan-2022 01:53:37 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru
+Set-Cookie: user_c=14; expires=Wed, 19-Jan-2022 01:53:37 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru
+Set-Cookie: sprf=AAAAAGG+kKFClQYaA7+6Ag==; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/; Secure; SameSite=None
+Set-Cookie: spid=1639878816926_593921c935ad4dce5e51fd62731e52be_fltjmokq2ld8cq37; Expires=Tue, 19 Jan 2038 03:14:07 GMT; Path=/; Secure; SameSite=None
+Expires: Sun, 19 Dec 2021 01:53:37 GMT
+Cache-Control: private, pre-check=0, post-check=0, max-age=0
+Pragma: no-cache
+Last-Modified: Sun, 19 Dec 2021 01:53:37 GMT
+X-Frame-Options: deny
+Content-Encoding: gzip
+X-Sp-Crid: 1182224026:359
+P3P: policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"

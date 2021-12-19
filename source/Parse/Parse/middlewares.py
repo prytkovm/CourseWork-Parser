@@ -3,6 +3,7 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import random
 from scrapy import signals
 import logging
 from urllib.parse import urljoin, urlparse
@@ -15,6 +16,42 @@ from scrapy.exceptions import IgnoreRequest, NotConfigured
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+
+
+class UserAgentMiddleware:
+    """This middleware allows spiders to override the user_agent"""
+
+    def __init__(self, user_agent=''):
+        self.user_agent = user_agent
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        o = cls(crawler.settings['USER_AGENT'])
+        crawler.signals.connect(o.spider_opened, signal=signals.spider_opened)
+        return o
+
+    def spider_opened(self, spider):
+        self.user_agent = getattr(spider, 'user_agent', self.user_agent)
+
+    def process_request(self, request, spider):
+        if self.user_agent:
+            request.headers.setdefault(b'User-Agent', self.user_agent)
+
+
+class RollingUserAgentMiddleware(UserAgentMiddleware):
+
+    def __init(self, user_agent=''):
+        self.user_agent = user_agent
+        super(RollingUserAgentMiddleware, self).__init__()
+
+    def process_request(self, request, spider):
+        with open("D:\\Projects\\Python\\Parse\\Parse\\user-agents.txt") as agents:
+            ua = random.choice(agents.read().splitlines())
+            if ua:
+                request.headers.setdefault('User-Agent', ua)
+                spider.log(
+                    'User-Agent: {} {}'.format(request.headers.get('User-Agent'), request)
+                )
 
 
 class ParseSpiderMiddleware:

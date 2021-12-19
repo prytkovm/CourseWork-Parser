@@ -1,0 +1,19 @@
+Content-Length: 0
+Server: nginx
+Date: Sun, 19 Dec 2021 03:07:19 GMT
+Content-Type: text/html; charset=windows-1251
+X-Powered-By: PHP/7.3.20
+Set-Cookie: onlinetrade=139800d1db7f4422f992b37035db9510; expires=Wed, 19-Jan-2022 03:07:19 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru; HttpOnly
+Set-Cookie: session_id=e2de4536100ba1238afd8e85b07f4a3d; expires=Wed, 19-Jan-2022 03:07:19 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru; HttpOnly
+Set-Cookie: user_city=1; expires=Wed, 19-Jan-2022 03:07:19 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru
+Set-Cookie: user_c=14; expires=Wed, 19-Jan-2022 03:07:19 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru
+Set-Cookie: sprf=AAAAAGG+oedr6Q3LBaPmAg==; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/; Secure; SameSite=None
+Set-Cookie: spid=1639883239416_027b5a3267924384d79f7b7879ed2589_xvwdqwc7savpane2; Expires=Tue, 19 Jan 2038 03:14:07 GMT; Path=/; Secure; SameSite=None
+Expires: Sun, 19 Dec 2021 03:07:19 GMT
+Cache-Control: private, pre-check=0, post-check=0, max-age=0
+Pragma: no-cache
+Last-Modified: Sun, 19 Dec 2021 03:07:19 GMT
+X-Frame-Options: deny
+Location: /catalogue/smartfony-c13/
+X-Sp-Crid: 1167786393:146
+P3P: policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"

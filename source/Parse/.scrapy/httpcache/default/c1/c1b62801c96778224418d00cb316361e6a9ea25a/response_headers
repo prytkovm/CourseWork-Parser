@@ -1,0 +1,29 @@
+Server: nginx
+Date: Sun, 19 Dec 2021 00:39:01 GMT
+Content-Type: text/html; charset=UTF-8
+Vary: Accept-Encoding
+Vary: Origin
+Content-Language: ru
+Content-Security-Policy: upgrade-insecure-requests;default-src https: wss: data: blob:;worker-src https: wss: data: blob:;style-src https: 'unsafe-inline';object-src 'self';script-src 'unsafe-inline' 'unsafe-eval' 'self' bundle.ozon.ru ozon2-st.secure.footprint.net *.ozone.ru *.ozon.ru connect.facebook.net *.ngenix.net shopnetic.com s.go-mpulse.net ozon-api.exponea.com *.maps.yandex.net yandex.ru yastatic.net *.yandex.ru vk.com cdn.rutarget.ru tns-counter.ru www.tns-counter.ru top-fwz1.mail.ru googleads.g.doubleclick.net www.google-analytics.com static.criteo.net sslwidget.criteo.com widget.eu.criteo.com *.o3.ru www.youtube.com www.googleadservices.com 'nonce-1bd4f538-6fd0-4ab6-8653-8979e4115290';report-uri https://xapi.ozon.ru/csp-log/
+Content-Security-Policy-Report-Only: default-src https: wss: data: blob:;worker-src https: wss: data: blob:;style-src https: 'unsafe-inline';object-src 'self';script-src 'unsafe-inline' 'unsafe-eval' 'self' bundle.ozon.ru ozon2-st.secure.footprint.net cdn2.ozone.ru cdn6.ozone.ru *.ozon.ru connect.facebook.net *.ngenix.net shopnetic.com s.go-mpulse.net ozon-api.exponea.com *.maps.yandex.net yandex.ru yastatic.net *.yandex.ru vk.com cdn.rutarget.ru tns-counter.ru www.tns-counter.ru top-fwz1.mail.ru googleads.g.doubleclick.net www.google-analytics.com static.criteo.net sslwidget.criteo.com widget.eu.criteo.com *.o3.ru www.youtube.com www.googleadservices.com 'nonce-1bd4f538-6fd0-4ab6-8653-8979e4115290';report-uri https://xapi.ozon.ru/csp-log/
+Set-Cookie: __Secure-access-token=3.0.tEw4CqpFQC-R_g-u94sH8g.16.l8cMBQAAAABhvn8lAB9_v6N3ZWKgAICQoA..20211219023901.3glmj5-Fz37K33EFlT1_poeBzfZ3qmMJpjSpAMtwCGY; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: __Secure-refresh-token=3.0.tEw4CqpFQC-R_g-u94sH8g.16.l8cMBQAAAABhvn8lAB9_v6N3ZWKgAICQoA..20211219023901.l_wmHys-7LEf5pbHB-6Q2G5_jOJ4qbMQt6fKk03AzoQ; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: __Secure-ab-group=16; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; Secure; SameSite=Lax
+Set-Cookie: __Secure-user-id=0; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: __Secure-access-token=3.0.tEw4CqpFQC-R_g-u94sH8g.16.l8cMBQAAAABhvn8lAB9_v6N3ZWKgAICQoA..20211219023901.3glmj5-Fz37K33EFlT1_poeBzfZ3qmMJpjSpAMtwCGY; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: __Secure-refresh-token=3.0.tEw4CqpFQC-R_g-u94sH8g.16.l8cMBQAAAABhvn8lAB9_v6N3ZWKgAICQoA..20211219023901.l_wmHys-7LEf5pbHB-6Q2G5_jOJ4qbMQt6fKk03AzoQ; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: __Secure-ab-group=16; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; Secure; SameSite=Lax
+Set-Cookie: __Secure-user-id=0; Path=/; Domain=ozon.ru; Expires=Mon, 19 Dec 2022 00:39:01 GMT; HttpOnly; Secure; SameSite=Lax
+Set-Cookie: xcid=947846ff3299342d12b5cefa7d631480; path=/;
+Set-Cookie: __Secure-ext_xcid=947846ff3299342d12b5cefa7d631480; Domain=.ozon.ru; path=/; Max-Age=31536000; SameSite=None; HttpOnly; Secure;
+Set-Cookie: visid_incap_1101384=U5TaFfsiQcyQTINtxxR3/CR/vmEAAAAAQUIPAAAAAACwE5/A+c4B/vp8GNOPsKGf; expires=Sun, 18 Dec 2022 13:42:06 GMT; HttpOnly; path=/; Domain=.ozon.ru; Secure; SameSite=None
+Set-Cookie: nlbi_1101384=9SlUHZdqIWwp8dEvK8plmQAAAAAoldL8dM52q1dJQLVZHgZu; path=/; Domain=.ozon.ru; Secure; SameSite=None
+Set-Cookie: incap_ses_586_1101384=eKQmdhB1nyLIunknneQhCCR/vmEAAAAAbGs3TSIiapXNKD3jja7aGg==; path=/; Domain=.ozon.ru; Secure; SameSite=None
+X-O3-Trace-Id: 73f45ff75d860b03
+Content-Encoding: gzip
+X-Recruiting: Like web development? Write us: https://job.ozon.ru/
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Cdn: Imperva
+X-Iinfo: 5-104824019-104822170 PNNy RT(1639874339949 108) q(0 0 0 1) r(0 0) U12

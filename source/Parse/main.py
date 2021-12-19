@@ -1,7 +1,7 @@
 from Parse.spiders.Citilink import CitilinkSpider
-from Parse.spiders.DNS import DnsSpider
 from Parse.spiders.Eldorado import EldoradoSpider
 from Parse.spiders.OnlineTrade import OnlineTradeSpider
+from Parse.spiders.Ozon import OzonSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -10,5 +10,5 @@ from scrapy.utils.project import get_project_settings
 
 if __name__ == '__main__':
     process = CrawlerProcess(get_project_settings())
-    process.crawl(OnlineTradeSpider, category="planshety-c136/")
+    process.crawl(CitilinkSpider, category="catalog/snegouborschiki/")
     process.start()
