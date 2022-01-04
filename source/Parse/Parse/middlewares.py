@@ -5,6 +5,9 @@
 
 import random
 from scrapy import signals
+import os
+import requests
+import json
 import logging
 from urllib.parse import urljoin, urlparse
 
@@ -17,12 +20,44 @@ from scrapy.exceptions import IgnoreRequest, NotConfigured
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+from stem import Signal
+from stem.control import Controller
+
+
+# class ProxyMiddleware(object):
+#
+#     def process_request(self, request, spider):
+#         # Set the location of the proxy
+#         request.meta['proxy'] = self.get_proxies()
+#         print("Got!")
+#         # # Use the following lines if your proxy requires authentication
+#         # request.headers['Proxy-Authorization'] = 'Basic'
+#
+#     def get_proxies(self):
+#         result = []
+#         json_data = {"method": "get", "model": "proxy", "limit": 1, "fields": "address,response_time"}
+#         url = "http://127.0.0.1:55555/api/v1/"
+#
+#         response = requests.post(url, json=json_data)
+#         if response.status_code == 200:
+#             response = json.loads(response.text)
+#             for proxy in response["data"]:
+#                 result.append(proxy["address"])
+#         # protocol = result[0].split(":")[0]
+#         print(result)
+#         return result[0]
+#         # return {
+#         #     'http': str(result[0]),
+#         #     'https': str(result[0])
+#         # }
+#
 
 class UserAgentMiddleware:
     """This middleware allows spiders to override the user_agent"""
 
     def __init__(self, user_agent=''):
         self.user_agent = user_agent
+        self.path = os.getcwd()
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -45,7 +80,7 @@ class RollingUserAgentMiddleware(UserAgentMiddleware):
         super(RollingUserAgentMiddleware, self).__init__()
 
     def process_request(self, request, spider):
-        with open("D:\\Projects\\Python\\Parse\\Parse\\user-agents.txt") as agents:
+        with open(self.path + "\\parse\\user_agents.txt") as agents:
             ua = random.choice(agents.read().splitlines())
             if ua:
                 request.headers.setdefault('User-Agent', ua)
@@ -99,7 +134,6 @@ class ParseSpiderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
-
 
 # class RedirectMiddleware(ParseSpiderMiddleware):
 #     """

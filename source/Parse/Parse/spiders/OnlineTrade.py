@@ -4,10 +4,10 @@ from ..items import ParseItem
 
 class OnlineTradeSpider(scrapy.Spider):
 
-    def __init__(self, category=None, *args, **kwargs):
+    def __init__(self, sub=None):
         self.name = 'OnlineTrade'
-        self.start_urls = [f'https://www.onlinetrade.ru/{category}']
-        super(OnlineTradeSpider, self).__init__(*args, **kwargs)
+        self.start_urls = [f'https://www.onlinetrade.ru/{sub}']
+        super(OnlineTradeSpider, self).__init__()
         self.current_page = 0
 
     def parse(self, response):
