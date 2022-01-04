@@ -1,0 +1,14 @@
+Content-Length: 0
+Server: nginx
+Date: Sun, 19 Dec 2021 19:25:06 GMT
+Content-Type: text/html; charset=windows-1251
+X-Powered-By: PHP/7.3.20
+Set-Cookie: onlinetrade=e7b894fd09f4e1efdea061779b74f4d7; expires=Wed, 19-Jan-2022 19:25:06 GMT; Max-Age=2678400; path=/; domain=.onlinetrade.ru; HttpOnly
+Set-Cookie: sprf=AAAAAGG/hxIKUlgMAx3OAg==; expires=Thu, 31-Dec-37 23:55:55 GMT; path=/; Secure; SameSite=None
+Set-Cookie: spid=1639941906719_00cbb45c04cc052b19fe6398519308a9_166ued3fldhpox4p; Expires=Tue, 19 Jan 2038 03:14:07 GMT; Path=/; Secure; SameSite=None
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: https://m.onlinetrade.ru/catalogue/dreli_setevye-c848/?page=1
+X-Sp-Crid: 132328154:67
+P3P: policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"

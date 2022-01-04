@@ -1,0 +1,5 @@
+Content-Length: 0
+Server: nginx
+Date: Sat, 25 Dec 2021 11:42:27 GMT
+Location: /smartfony/
+Set-Cookie: _HASH__=7b3964f5420c2c315e9fd1d0bd2bfcbf; Max-Age=3600; SameSite=None; Secure; Path=/
