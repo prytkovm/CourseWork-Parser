@@ -19,12 +19,15 @@ class TasksList(QListWidget):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
 
-    def delete_item(self, item_id):
-        """Call methods from ParseWizard"""
+    def delete_item(self, item_id, item_name):
+        """Здесь нужно отправить какой-нибудь сигнал ParsingWizard-y
+           и в нем забиндить на него удаление файла"""
         self.takeItem(item_id)
+        self.signals.delete_file.emit(item_name)
 
     def add_item(self, name, data):
-        """Here must be called methods from ParseWizard UI"""
+        """Здесь нужно отправить какой-нибудь сигнал ParsingWizard-y
+           и в нем забиндить на него удаление файла"""
         new_item = TasksManagerItemWidget(parent=self, communicate=self.signals)
         # new_item.set_text('raz raz raz')
         new_item.set_data(name, data)

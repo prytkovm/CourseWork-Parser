@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QComboBox
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QPushButton, QComboBox, QLabel
 from PyQt6.QtGui import QIcon, QPixmap
 from ui.custom_widgets.communication import Communicate
 
@@ -11,8 +11,9 @@ class TasksManagerItemWidget(QWidget):
         super(TasksManagerItemWidget, self).__init__(parent)
         self.signals = communicate
         self.h_box_layout = QHBoxLayout(self)
-        self.combobox = QComboBox(self)
-        self.h_box_layout.addWidget(self.combobox)
+        # self.combobox = QComboBox(self)
+        self.label = QLabel(self)
+        self.h_box_layout.addWidget(self.label)
         self.delete_button = QPushButton(self)
         delete_img = QIcon()
         delete_img.addPixmap(QPixmap(r'ui/custom_widgets/widget_icons/delete-icon.png'))
@@ -22,11 +23,12 @@ class TasksManagerItemWidget(QWidget):
         self.add_item()
 
     def set_data(self, name, data):
-        self.combobox.addItem(name, data)
+        self.label.setText(name)
+        # self.combobox.addItem(name, data)
 
     def send_delete_signal(self):
         row = TasksManagerItemWidget.delete_item(self)
-        self.signals.delete_item.emit(row + 1)
+        self.signals.delete_item.emit(row + 1, self.label.text())
 
     def delete_item(self):
         index = TasksManagerItemWidget.objects.index(self)

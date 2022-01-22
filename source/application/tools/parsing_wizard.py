@@ -57,7 +57,6 @@ class ParsingWizard(QWidget):
         self.signals.links_got.emit(urls)
 
     def read_tasks(self):
-        """TODO"""
         files = glob('parsing_tasks/*.ini')
         tasks = []
         for file in files:
@@ -68,6 +67,7 @@ class ParsingWizard(QWidget):
             for i in range(size):
                 settings.setArrayIndex(i)
                 links[i] = settings.value('links')
+            settings.endArray()
             tasks.append(dict(name=task_name, links=links))
         return tasks
 
@@ -78,11 +78,15 @@ class ParsingWizard(QWidget):
             self.tasks_list.add_item(task['name'], task['links'])
         self.tasks_list.show()
 
+    def add_task(self):
+        """TODO"""
+
     def delete_task(self):
         """"TODO"""
 
     def connect_slots(self):
         self.ui.OkButton.clicked.connect(self.get_links)
         self.signals.links_got.connect(self.write_task)
+        self.signals.delete_file.connect(self.delete_task)
         self.ui.OkButton.clicked.connect(self.close)
         self.ui.CancelButton.clicked.connect(self.close)
