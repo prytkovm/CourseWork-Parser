@@ -30,15 +30,15 @@ class ParsingWizard(QWidget):
         dialog = QInputDialog()
         dialog_window = QWidget()
         dialog.setWindowTitle('New parsing task')
-        invalid_names = glob('parsing_tasks/*.ini')
-        invalid_names = [os.path.basename(name) for name in invalid_names]
         name, ok = dialog.getText(dialog_window, 'Parsing wizard', 'Enter name of task')
-        if len(name) == 0 or f'{name}.ini' in invalid_names:
-            self.msg_window.setText('Invalid name')
-            self.msg_window.setWindowTitle('Name error')
-            self.msg_window.exec()
-            return
         if ok:
+            invalid_names = glob('parsing_tasks/*.ini')
+            invalid_names = [os.path.basename(name) for name in invalid_names]
+            if len(name) == 0 or f'{name}.ini' in invalid_names:
+                self.msg_window.setText('Invalid name')
+                self.msg_window.setWindowTitle('Name error')
+                self.msg_window.exec()
+                return
             self.show()
             self.signals.write_task.emit(name)
 
@@ -48,12 +48,11 @@ class ParsingWizard(QWidget):
         settings.setValue('task_name', task_name)
         data = self.get_parsing_targets()
         settings.beginWriteArray('links')
-        if self.signals.links_got:
-            for i in range(len(data)):
-                settings.setArrayIndex(i)
-                settings.setValue("links", data[i])
-            settings.endArray()
-            settings.sync()
+        for i in range(len(data)):
+            settings.setArrayIndex(i)
+            settings.setValue("links", data[i])
+        settings.endArray()
+        settings.sync()
 
     def write_links(self):
         """TODO"""
