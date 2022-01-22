@@ -8,6 +8,7 @@ class Communicate(QObject):
     # Сигнал, сообщающий классу TasksList об удалении элемента из списка, посылает индекс удаляемого объекта
     delete_item = pyqtSignal(int, str)
     delete_file = pyqtSignal(str)
+    create_file = pyqtSignal()
     # Сигнал, сообщающий классу TasksList о добавлении нового элемента в список
     add_item = pyqtSignal()
     links_got = pyqtSignal(list)

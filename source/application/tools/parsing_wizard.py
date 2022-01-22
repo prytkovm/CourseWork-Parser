@@ -78,14 +78,21 @@ class ParsingWizard(QWidget):
             self.tasks_list.add_item(task['name'], task['links'])
         self.tasks_list.show()
 
-    def add_task(self):
+    def add_task(self, create_file):
         """TODO"""
 
-    def delete_task(self):
+
+    def delete_task(self, delete_file):
         """"TODO"""
+        try:
+            os.remove(f'parsing_tasks/{delete_file}')
+        except Exception as e:
+            print(str(e))
+            return
 
     def connect_slots(self):
         self.ui.OkButton.clicked.connect(self.get_links)
+        self.signals.create_file.connect(self.add_task)
         self.signals.links_got.connect(self.write_task)
         self.signals.delete_file.connect(self.delete_task)
         self.ui.OkButton.clicked.connect(self.close)

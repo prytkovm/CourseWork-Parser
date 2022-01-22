@@ -26,8 +26,6 @@ class TasksList(QListWidget):
         self.signals.delete_file.emit(item_name)
 
     def add_item(self, name, data):
-        """Здесь нужно отправить какой-нибудь сигнал ParsingWizard-y
-           и в нем забиндить на него удаление файла"""
         new_item = TasksManagerItemWidget(parent=self, communicate=self.signals)
         # new_item.set_text('raz raz raz')
         new_item.set_data(name, data)
@@ -35,6 +33,7 @@ class TasksList(QListWidget):
         widget_item.setSizeHint(new_item.sizeHint())
         self.addItem(widget_item)
         self.setItemWidget(widget_item, new_item)
+
 
 
 # if __name__ == '__main__':
