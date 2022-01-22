@@ -3,9 +3,6 @@ from PyQt6.QtWidgets import QFileDialog
 
 class FileDialog(QFileDialog):
 
-    def __init__(self):
-        super().__init__()
-
     def show_file_open_dialog(self):
         try:
             filename = self.getOpenFileName(self, 'Open file', '', 'Csv files(*.csv)')[0]

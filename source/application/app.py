@@ -41,8 +41,14 @@ class App:
         self.set_table_data(data)
 
     def write_csv(self):
-        """TODO"""
-        pass
+        try:
+            path_to_file = self.file_browser.show_file_save_dialog()
+        except Exception:
+            return
+        try:
+            pass
+        except Exception:
+            pass
 
     def set_table_data(self, data):
         rows_count = len(data.index)
@@ -96,7 +102,7 @@ class App:
         self.main_window_ui.actionStartParsing.triggered.connect(self.start_parsing)
         self.main_window_ui.actionStopParsing.triggered.connect(self.stop_parsing)
         self.main_window_ui.actionCreateNewParsingTask.triggered.connect(
-            self.parsing_wizard.create_task
+            self.parsing_wizard.show
         )
         self.main_window_ui.actionManageExistingTasks.triggered.connect(
             self.parsing_wizard.show_tasks

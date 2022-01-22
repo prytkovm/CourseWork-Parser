@@ -21,12 +21,7 @@ class ParsingWizard(QWidget):
         self.ui.setupUi(self)
         self.connect_slots()
 
-    def get_parsing_targets(self):
-        urls = self.ui.UserUrls.toPlainText().split()
-        urls = Extractor.get_links(urls)
-        return urls
-
-    def create_task(self):
+    def get_task_name(self):
         dialog = QInputDialog()
         dialog_window = QWidget()
         dialog.setWindowTitle('New parsing task')
@@ -39,23 +34,27 @@ class ParsingWizard(QWidget):
                 self.msg_window.setWindowTitle('Name error')
                 self.msg_window.exec()
                 return
-            self.show()
-            self.signals.write_task.emit(name)
+            return name
+        return None
 
-    def write_task(self, task_name):
-        """TODO"""
-        settings = QSettings(f'parsing_tasks/{task_name}.ini', QSettings.Format.IniFormat)
-        settings.setValue('task_name', task_name)
-        data = self.get_parsing_targets()
-        settings.beginWriteArray('links')
-        for i in range(len(data)):
-            settings.setArrayIndex(i)
-            settings.setValue("links", data[i])
-        settings.endArray()
-        settings.sync()
+    def write_task(self, links):
+        task_name = self.get_task_name()
+        if task_name is not None:
+            settings = QSettings(f'parsing_tasks/{task_name}.ini', QSettings.Format.IniFormat)
+            settings.setValue('task_name', task_name)
+            settings.beginWriteArray('links')
+            for i in range(len(links)):
+                settings.setArrayIndex(i)
+                settings.setValue("links", links[i])
+            settings.endArray()
+            settings.sync()
+        else:
+            return
 
-    def write_links(self):
-        """TODO"""
+    def get_links(self):
+        urls = self.ui.UserUrls.toPlainText().split()
+        urls = Extractor.get_links(urls)
+        return urls
 
     def delete_task(self):
         """"TODO"""
@@ -79,8 +78,14 @@ class ParsingWizard(QWidget):
             tasks.append(dict(name=task_name, links=links))
         return tasks
 
+    def send_links_got_signal(self):
+        links = self.get_links()
+        self.signals.links_got.emit(links)
+
     def connect_slots(self):
-        self.signals.write_task.connect(self.write_task)
-        self.ui.OkButton.clicked.connect(self.signals.links_got.emit)
+        self.ui.OkButton.clicked.connect(
+            self.send_links_got_signal
+        )
+        self.signals.links_got.connect(self.write_task)
         self.ui.OkButton.clicked.connect(self.close)
         self.ui.CancelButton.clicked.connect(self.close)
