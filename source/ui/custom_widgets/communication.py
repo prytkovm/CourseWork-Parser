@@ -9,5 +9,5 @@ class Communicate(QObject):
     delete_item = pyqtSignal(int)
     # Сигнал, сообщающий классу TasksList о добавлении нового элемента в список
     add_item = pyqtSignal()
-    write_task = pyqtSignal()
+    write_task = pyqtSignal(str)
     links_got = pyqtSignal(str, QSettings, list)
