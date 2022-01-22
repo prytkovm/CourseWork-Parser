@@ -1,95 +1,11 @@
-# Define here the models for your spider middleware
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
-import random
+from fake_useragent import UserAgent, FakeUserAgentError
 from scrapy import signals
-import os
-import requests
-import json
-import logging
-from urllib.parse import urljoin, urlparse
-
-from w3lib.url import safe_url_string
-
-from scrapy.http import HtmlResponse
-from scrapy.utils.response import get_meta_refresh
-from scrapy.exceptions import IgnoreRequest, NotConfigured
-
-# useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
-
-from stem import Signal
-from stem.control import Controller
+from scrapy import settings
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+from PyQt6.QtCore import QSettings
 
 
-# class ProxyMiddleware(object):
-#
-#     def process_request(self, request, spider):
-#         # Set the location of the proxy
-#         request.meta['proxy'] = self.get_proxies()
-#         print("Got!")
-#         # # Use the following lines if your proxy requires authentication
-#         # request.headers['Proxy-Authorization'] = 'Basic'
-#
-#     def get_proxies(self):
-#         result = []
-#         json_data = {"method": "get", "model": "proxy", "limit": 1, "fields": "address,response_time"}
-#         url = "http://127.0.0.1:55555/api/v1/"
-#
-#         response = requests.post(url, json=json_data)
-#         if response.status_code == 200:
-#             response = json.loads(response.text)
-#             for proxy in response["data"]:
-#                 result.append(proxy["address"])
-#         # protocol = result[0].split(":")[0]
-#         print(result)
-#         return result[0]
-#         # return {
-#         #     'http': str(result[0]),
-#         #     'https': str(result[0])
-#         # }
-#
-
-class UserAgentMiddleware:
-    """This middleware allows spiders to override the user_agent"""
-
-    def __init__(self, user_agent=''):
-        self.user_agent = user_agent
-        self.path = os.getcwd()
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        o = cls(crawler.settings['USER_AGENT'])
-        crawler.signals.connect(o.spider_opened, signal=signals.spider_opened)
-        return o
-
-    def spider_opened(self, spider):
-        self.user_agent = getattr(spider, 'user_agent', self.user_agent)
-
-    def process_request(self, request, spider):
-        if self.user_agent:
-            request.headers.setdefault(b'User-Agent', self.user_agent)
-
-
-class RollingUserAgentMiddleware(UserAgentMiddleware):
-
-    def __init(self, user_agent=''):
-        self.user_agent = user_agent
-        super(RollingUserAgentMiddleware, self).__init__()
-
-    def process_request(self, request, spider):
-        with open(self.path + "\\parse\\user_agents.txt") as agents:
-            ua = random.choice(agents.read().splitlines())
-            if ua:
-                request.headers.setdefault('User-Agent', ua)
-                spider.log(
-                    'User-Agent: {} {}'.format(request.headers.get('User-Agent'), request)
-                )
-
-
-class ParseSpiderMiddleware:
+class SpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -97,9 +13,9 @@ class ParseSpiderMiddleware:
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
-        s = cls()
-        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
-        return s
+        middleware = cls()
+        crawler.signals.connect(middleware.spider_opened, signal=signals.spider_opened)
+        return middleware
 
     def process_spider_input(self, response, spider):
         # Called for each response that goes through the spider
@@ -135,41 +51,8 @@ class ParseSpiderMiddleware:
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
-# class RedirectMiddleware(ParseSpiderMiddleware):
-#     """
-#     Handle redirection of requests based on response status
-#     and meta-refresh html tag.
-#     """
-#
-#     def process_response(self, request, response, spider):
-#         if (
-#             request.meta.get('dont_redirect', False)
-#             or response.status in getattr(spider, 'handle_httpstatus_list', [])
-#             or response.status in request.meta.get('handle_httpstatus_list', [])
-#             or request.meta.get('handle_httpstatus_all', False)
-#         ):
-#             return response
-#
-#         allowed_status = (301, 302, 303, 307, 308)
-#         if 'Location' not in response.headers or response.status not in allowed_status:
-#             return response
-#
-#         location = safe_url_string(response.headers['Location'])
-#         if response.headers['Location'].startswith(b'//'):
-#             request_scheme = urlparse(request.url).scheme
-#             location = request_scheme + '://' + location.lstrip('/')
-#
-#         redirected_url = urljoin(request.url, location)
-#
-#         if response.status in (301, 307, 308) or request.method == 'HEAD':
-#             redirected = request.replace(url=redirected_url)
-#             return self._redirect(redirected, request, spider, response.status)
-#
-#         redirected = self._redirect_request_using_get(request, redirected_url)
-#         return self._redirect(redirected, request, spider, response.status)
 
-
-class ParseDownloaderMiddleware:
+class DownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
@@ -177,9 +60,9 @@ class ParseDownloaderMiddleware:
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
-        s = cls()
-        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
-        return s
+        middleware = cls()
+        crawler.signals.connect(middleware.spider_opened, signal=signals.spider_opened)
+        return middleware
 
     def process_request(self, request, spider):
         # Called for each request that goes through the downloader
@@ -214,3 +97,49 @@ class ParseDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class RollingUserAgentMiddleware(UserAgentMiddleware):
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        middleware = cls(crawler.settings['USER_AGENT'])
+        cls.requests_count = 0
+        cls.frequency = crawler.settings['UA_CHANGE_FREQUENCY']
+        cls.default_ua = crawler.settings['DEFAULT_USER_AGENT']
+        crawler.signals.connect(middleware.spider_opened, signals.spider_opened)
+        return middleware
+
+    def process_request(self, request, spider):
+        if self.requests_count % self.frequency == 0:
+            try:
+                user_agent = UserAgent()
+                user_agent = user_agent.random
+            except FakeUserAgentError:
+                user_agent = self.default_ua
+            request.headers.setdefault('User-Agent', user_agent)
+            spider.log('User-Agent: {} {}'.format(request.headers.get('User-Agent'), request))
+            self.requests_count += 1
+
+
+class SettingsReaderMiddleware:
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        middleware = cls()
+        cls.settings = crawler.settings
+        crawler.signals.connect(middleware.configure_scrapy, signals.engine_started)
+        return middleware
+
+    def configure_scrapy(self):
+        app_settings = QSettings('parser_config.ini', QSettings.Format.IniFormat)
+        if app_settings.value('proxy_enabled'):
+            self.settings['ZYTE_SMARTPROXY_ENABLED'] = True
+            self.settings['CONCURRENT_REQUESTS'] = 32
+            self.settings['CONCURRENT_REQUESTS_PER_DOMAIN'] = 32
+            self.settings['AUTOTHROTTLE_ENABLED'] = False
+        else:
+            self.settings['ZYTE_SMARTPROXY_ENABLED'] = False
+            self.settings['CONCURRENT_REQUESTS'] = 1
+            self.settings['CONCURRENT_REQUESTS_PER_DOMAIN'] = 1
+            self.settings['AUTOTHROTTLE_ENABLED'] = True
