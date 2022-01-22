@@ -79,16 +79,12 @@ class MainWindowUI:
         # config for actions in menu bar
         self.actionOpenFile = QtGui.QAction(MainWindow)
         self.actionOpenFile.setObjectName("actionOpenFile")
-        self.actionCreateNewParsingTask = QtGui.QAction(MainWindow)
-        self.actionCreateNewParsingTask.setObjectName("actionCreateNewParsingTask")
-        self.actionManageExistingTasks = QtGui.QAction(MainWindow)
-        self.actionManageExistingTasks.setObjectName("actionManageExistingTasks")
+        self.actionOpenParsingWizard = QtGui.QAction(MainWindow)
+        self.actionOpenParsingWizard.setObjectName("actionOpenParsingWizard")
         self.actionExport = QtGui.QAction(MainWindow)
         self.actionExport.setObjectName("actionExport")
         self.menuFile.addAction(self.actionOpenFile)
         self.menuFile.addAction(self.actionExport)
-        self.menuTasks.addAction(self.actionCreateNewParsingTask)
-        self.menuTasks.addAction(self.actionManageExistingTasks)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuTasks.menuAction())
         # add loading logo and label for it output
@@ -102,7 +98,6 @@ class MainWindowUI:
         # retranslate UI
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        # here must be slots connection
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -116,8 +111,7 @@ class MainWindowUI:
         self.actionOpenSettings.setToolTip(_translate("MainWindow", "Open Settings"))
         self.actionOpenSettings.setShortcut(_translate("MainWindow", "Ctrl+Alt+S"))
         self.actionOpenFile.setText(_translate("MainWindow", "Open"))
-        self.actionCreateNewParsingTask.setText(_translate("MainWindow", "Create new parsing task"))
-        self.actionManageExistingTasks.setText(_translate("MainWindow", "Manage existing tasks"))
+        self.actionOpenParsingWizard.setText(_translate("MainWindow", "Tasks"))
         self.actionExport.setText(_translate("MainWindow", "Export"))
 
 
