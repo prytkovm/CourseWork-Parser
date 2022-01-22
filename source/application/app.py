@@ -107,7 +107,9 @@ class App:
         # self.main_window_ui.actionManageExistingTasks.triggered.connect(
         #     self.parsing_wizard.show_tasks
         # )
-
+        self.main_window_ui.actionShowTasks.triggered.connect(
+            self.parsing_wizard.show_tasks
+        )
         self.main_window_ui.actionStartParsing.hovered.connect(
             lambda text='Start parsing process': self.send_to_statusbar(text)
         )

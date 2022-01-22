@@ -27,13 +27,12 @@ class TasksList(QListWidget):
 
     def add_item(self, name, data):
         new_item = TasksManagerItemWidget(parent=self, communicate=self.signals)
-        # new_item.set_text('raz raz raz')
         new_item.set_data(name, data)
         widget_item = QListWidgetItem(self)
         widget_item.setSizeHint(new_item.sizeHint())
         self.addItem(widget_item)
         self.setItemWidget(widget_item, new_item)
-
+        self.signals.create_file.emit()
 
 
 # if __name__ == '__main__':

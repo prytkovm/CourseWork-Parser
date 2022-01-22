@@ -83,10 +83,13 @@ class MainWindowUI:
         self.actionOpenParsingWizard.setObjectName("actionOpenParsingWizard")
         self.actionExport = QtGui.QAction(MainWindow)
         self.actionExport.setObjectName("actionExport")
+        self.actionShowTasks = QtGui.QAction(MainWindow)
+        self.actionShowTasks.setObjectName("actionShowTasks")
         self.menuFile.addAction(self.actionOpenFile)
         self.menuFile.addAction(self.actionExport)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuTasks.menuAction())
+        self.menuTasks.addAction(self.actionShowTasks)
         # add loading logo and label for it output
         self.movie = QtGui.QMovie('ui\\icons\\loading_logo.gif')
         self.label = QLabel()
@@ -111,8 +114,9 @@ class MainWindowUI:
         self.actionOpenSettings.setToolTip(_translate("MainWindow", "Open Settings"))
         self.actionOpenSettings.setShortcut(_translate("MainWindow", "Ctrl+Alt+S"))
         self.actionOpenFile.setText(_translate("MainWindow", "Open"))
-        self.actionOpenParsingWizard.setText(_translate("MainWindow", "Tasks"))
         self.actionExport.setText(_translate("MainWindow", "Export"))
+        self.actionShowTasks.setText(_translate("MainWindow", "Manage parsing tasks"))
+        self.actionShowTasks.setToolTip(_translate("MainWindow", "Manage parsing tasks"))
 
 
 # if __name__ == "__main__":

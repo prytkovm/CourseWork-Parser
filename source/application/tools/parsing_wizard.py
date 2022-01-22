@@ -72,15 +72,10 @@ class ParsingWizard(QWidget):
         return tasks
 
     def show_tasks(self):
-        """TODO"""
         tasks = self.read_tasks()
         for task in tasks:
             self.tasks_list.add_item(task['name'], task['links'])
         self.tasks_list.show()
-
-    def add_task(self, create_file):
-        """TODO"""
-
 
     def delete_task(self, delete_file):
         """"TODO"""
@@ -92,7 +87,7 @@ class ParsingWizard(QWidget):
 
     def connect_slots(self):
         self.ui.OkButton.clicked.connect(self.get_links)
-        self.signals.create_file.connect(self.add_task)
+        self.signals.create_file.connect(self.show)
         self.signals.links_got.connect(self.write_task)
         self.signals.delete_file.connect(self.delete_task)
         self.ui.OkButton.clicked.connect(self.close)
