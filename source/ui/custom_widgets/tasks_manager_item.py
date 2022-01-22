@@ -22,7 +22,7 @@ class TasksManagerItemWidget(QWidget):
         self.add_item()
 
     def set_data(self, name, data):
-        self.combobox.addItem(name, *data)
+        self.combobox.addItem(name, data)
 
     def send_delete_signal(self):
         row = TasksManagerItemWidget.delete_item(self)
