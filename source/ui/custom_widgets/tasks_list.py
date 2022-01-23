@@ -13,7 +13,6 @@ class TasksList(QListWidget):
         widget_item = QListWidgetItem(self)
         widget_item.setSizeHint(self.add_button.sizeHint())
         self.addItem(widget_item)
-        self.signals.add_item.connect(self.add_item)
         self.signals.delete_item.connect(self.delete_item)
         self.setItemWidget(widget_item, self.add_button)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -32,7 +31,6 @@ class TasksList(QListWidget):
         widget_item.setSizeHint(new_item.sizeHint())
         self.addItem(widget_item)
         self.setItemWidget(widget_item, new_item)
-        self.signals.create_file.emit()
 
 
 # if __name__ == '__main__':

@@ -14,11 +14,8 @@ class TasksManagerAddItemWidget(QWidget):
         add_icon.addPixmap(QPixmap(r'ui/custom_widgets/widget_icons/add_icon.png'))
         self.add_button.setIcon(add_icon)
         self.h_box_layout.addWidget(self.add_button)
-        self.add_button.clicked.connect(self.send_add_item_signal)
-
-    def send_add_item_signal(self):
-        self.signals.add_item.emit()
-
+        self.add_button.clicked.connect(self.signals.add_item.emit)
+        self.add_button.clicked.connect(self.signals.create_file.emit)
 
 # if __name__ == '__main__':
 #     import sys

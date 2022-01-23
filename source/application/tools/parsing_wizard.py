@@ -8,17 +8,17 @@ from PyQt6.QtCore import QSettings
 from glob import glob
 
 
-class ParsingWizard(QWidget):
+class ParsingWizard:
 
     def __init__(self):
-        super(ParsingWizard, self).__init__()
+        self.urls_get_window = QWidget()
         self.existing_tasks_window = QWidget()
         self.signals = Communicate()
         self.msg_window = QMessageBox()
         self.msg_window.setIcon(QMessageBox.Icon.Warning)
         self.tasks_list = TasksList(communicate=self.signals)
         self.ui = WizardSecondPageUi()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self.urls_get_window)
         self.connect_slots()
 
     def write_task(self, links):
@@ -31,6 +31,12 @@ class ParsingWizard(QWidget):
                 settings.setArrayIndex(i)
                 settings.setValue("links", links[i])
             settings.endArray()
+            self.add_task(
+                dict(
+                    name=task_name,
+                    links=links
+                )
+            )
             settings.sync()
         else:
             return
@@ -61,7 +67,7 @@ class ParsingWizard(QWidget):
         tasks = []
         for file in files:
             settings = QSettings(file, QSettings.Format.IniFormat)
-            task_name = os.path.basename(file)
+            task_name = os.path.basename(file).replace('.ini','')
             size = settings.beginReadArray('links')
             links = [None for _ in range(size)]
             for i in range(size):
@@ -74,21 +80,23 @@ class ParsingWizard(QWidget):
     def show_tasks(self):
         tasks = self.read_tasks()
         for task in tasks:
-            self.tasks_list.add_item(task['name'], task['links'])
+            self.add_task(task)
         self.tasks_list.show()
 
+    def add_task(self, task):
+        self.tasks_list.add_item(task['name'], task['links'])
+
     def delete_task(self, delete_file):
-        """"TODO"""
         try:
-            os.remove(f'parsing_tasks/{delete_file}')
+            os.remove(f'parsing_tasks/{delete_file}.ini')
         except Exception as e:
             print(str(e))
             return
 
     def connect_slots(self):
         self.ui.OkButton.clicked.connect(self.get_links)
-        self.signals.create_file.connect(self.show)
+        self.signals.create_file.connect(self.urls_get_window.show)
         self.signals.links_got.connect(self.write_task)
         self.signals.delete_file.connect(self.delete_task)
-        self.ui.OkButton.clicked.connect(self.close)
-        self.ui.CancelButton.clicked.connect(self.close)
+        self.ui.OkButton.clicked.connect(self.urls_get_window.close)
+        self.ui.CancelButton.clicked.connect(self.urls_get_window.close)
