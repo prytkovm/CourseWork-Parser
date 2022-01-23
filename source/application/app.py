@@ -3,7 +3,9 @@ from application.tools.settings_wizard import SettingsWizard
 from application.tools.parsing_wizard import ParsingWizard
 from application.tools.file_browser import FileDialog
 from application.tools.csv_reader import CsvReader
+from application.tools.csv_writer import CsvWriter
 from ui.mainwindow import MainWindowUI
+from PyQt6.QtCore import Qt
 import sys
 
 
@@ -43,12 +45,24 @@ class App:
     def write_csv(self):
         try:
             path_to_file = self.file_browser.show_file_save_dialog()
+            rows = self.main_window_ui.tableWidget.rowCount()
+            columns = self.main_window_ui.tableWidget.columnCount()
+            header = []
+            for i in range(columns):
+                header_item = self.main_window_ui.tableWidget.horizontalHeaderItem(i).data(Qt.ItemDataRole.DisplayRole)
+                header.append(header_item)
+            header = (','.join(header)+'\n').encode('utf_8')
+            data = []
+            for i in range(rows):
+                table_row = []
+                for j in range(columns):
+                    cell = self.main_window_ui.tableWidget.item(i, j).text()
+                    table_row.append(cell)
+                table_row = (','.join(table_row) + '\n')
+                data.append(table_row.encode('utf_8'))
+            CsvWriter.create_csv(path_to_file, header, data)
         except Exception:
             return
-        try:
-            pass
-        except Exception:
-            pass
 
     def set_table_data(self, data):
         rows_count = len(data.index)

@@ -6,7 +6,7 @@ class CsvReader:
     @staticmethod
     def read_file(path):
         try:
-            data = read_csv(path)
+            data = read_csv(path, sep=',')
         except FileNotFoundError:
             raise FileNotFoundError
         return data
