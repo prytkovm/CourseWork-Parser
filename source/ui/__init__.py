@@ -1,8 +1,11 @@
-from ui.parsing_wizard_ui.pages import *
-from ui.settings_ui.settings_window import SettingsWindowUi
+from ui.mainwindow import MainWindowUI
+from ui.parsing_wizard_ui import ParsingWizardUi
+from ui.settings_ui import SettingsWindowUi
+from ui.custom_widgets import TasksList
 
 __all__ = [
-    'WizardFirstPageUi',
-    'WizardSecondPageUi',
-    'SettingsWindowUi'
+    'MainWindowUI',
+    'ParsingWizardUi',
+    'SettingsWindowUi',
+    'TasksList'
 ]

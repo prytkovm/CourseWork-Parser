@@ -1,6 +1,5 @@
 from fake_useragent import UserAgent, FakeUserAgentError
 from scrapy import signals
-from scrapy import settings
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from PyQt6.QtCore import QSettings
 
@@ -8,7 +7,7 @@ from PyQt6.QtCore import QSettings
 class SpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
-    # passed objects.
+    # passed __objects.
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -28,7 +27,7 @@ class SpiderMiddleware:
         # Called with the results returned from the Spider, after
         # it has processed the response.
 
-        # Must return an iterable of Request, or item objects.
+        # Must return an iterable of Request, or item __objects.
         for i in result:
             yield i
 
@@ -36,7 +35,7 @@ class SpiderMiddleware:
         # Called when a spider or process_spider_input() method
         # (from other spider middleware) raises an exception.
 
-        # Should return either None or an iterable of Request or item objects.
+        # Should return either None or an iterable of Request or item __objects.
         pass
 
     def process_start_requests(self, start_requests, spider):
@@ -55,7 +54,7 @@ class SpiderMiddleware:
 class DownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
-    # passed objects.
+    # passed __objects.
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -99,10 +98,63 @@ class DownloaderMiddleware:
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
+class SettingsReaderMiddleware(DownloaderMiddleware):
+
+    """Класс, изменяющий настройки пауков, основываясь на конфигурации, выбранной пользователем.
+    Наследует DownloaderMiddleware.
+    """
+
+    def spider_opened(self, spider):
+        """Метод, вызываемый при открытии паука и изменяющий его конфигурацию.
+
+        Args:
+            spider:
+                scrapy.Spider, открытый паук
+        """
+        app_settings = QSettings('parser_config.ini', QSettings.Format.IniFormat)
+        if app_settings.value('proxy_enabled', type=bool):
+            spider.custom_settings = {
+                'ZYTE_SMARTPROXY_ENABLED': True,
+                'CONCURRENT_REQUESTS': 16,
+                'CONCURRENT_REQUESTS_PER_DOMAIN': 16,
+                'AUTOTHROTTLE_ENABLED': False
+            }
+        else:
+            spider.custom_settings = {
+                'ZYTE_SMARTPROXY_ENABLED': False,
+                'CONCURRENT_REQUESTS': 0,
+                'CONCURRENT_REQUESTS_PER_DOMAIN': 0,
+                'AUTOTHROTTLE_ENABLED': True
+            }
+        if app_settings.value('auto_parse', type=bool):
+            spider.custom_settings = {
+                'AUTO_PARSE': True
+            }
+        else:
+            spider.custom_settings = {
+                'AUTO_PARSE': False
+            }
+        spider.logger.info('Spider opened: %s' % spider.name)
+
+
 class RollingUserAgentMiddleware(UserAgentMiddleware):
+
+    """Класс, использумый для подмены user-agent при запросах.
+    Наследует scrapy.downloadermiddlewares.UserAgentMiddleware.
+    """
 
     @classmethod
     def from_crawler(cls, crawler):
+        """Переопределение метода базового класса, используется scrapy для создания экземпляра объекта.
+
+        Args:
+            crawler:
+                scrapy.Spider, паук.
+
+        Returns:
+            pipeline:
+                экземпляр класса
+        """
         middleware = cls(crawler.settings['USER_AGENT'])
         cls.requests_count = 0
         cls.frequency = crawler.settings['UA_CHANGE_FREQUENCY']
@@ -111,6 +163,7 @@ class RollingUserAgentMiddleware(UserAgentMiddleware):
         return middleware
 
     def process_request(self, request, spider):
+        """Переопределение метода базового класса, вызывается scrapy перед отправкой запроса."""
         if self.requests_count % self.frequency == 0:
             try:
                 user_agent = UserAgent()
@@ -120,26 +173,3 @@ class RollingUserAgentMiddleware(UserAgentMiddleware):
             request.headers.setdefault('User-Agent', user_agent)
             spider.log('User-Agent: {} {}'.format(request.headers.get('User-Agent'), request))
             self.requests_count += 1
-
-
-class SettingsReaderMiddleware:
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        middleware = cls()
-        cls.settings = crawler.settings
-        crawler.signals.connect(middleware.configure_scrapy, signals.engine_started)
-        return middleware
-
-    def configure_scrapy(self):
-        app_settings = QSettings('parser_config.ini', QSettings.Format.IniFormat)
-        if app_settings.value('proxy_enabled'):
-            self.settings['ZYTE_SMARTPROXY_ENABLED'] = True
-            self.settings['CONCURRENT_REQUESTS'] = 32
-            self.settings['CONCURRENT_REQUESTS_PER_DOMAIN'] = 32
-            self.settings['AUTOTHROTTLE_ENABLED'] = False
-        else:
-            self.settings['ZYTE_SMARTPROXY_ENABLED'] = False
-            self.settings['CONCURRENT_REQUESTS'] = 1
-            self.settings['CONCURRENT_REQUESTS_PER_DOMAIN'] = 1
-            self.settings['AUTOTHROTTLE_ENABLED'] = True

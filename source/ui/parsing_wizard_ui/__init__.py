@@ -1,6 +1,5 @@
-from ui.parsing_wizard_ui.pages import *
+from ui.parsing_wizard_ui.parsing_wizard_window import ParsingWizardUi
 
 __all__ = [
-    'WizardFirstPageUi',
-    'WizardSecondPageUi'
+    'ParsingWizardUi'
 ]

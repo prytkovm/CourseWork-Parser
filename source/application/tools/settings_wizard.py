@@ -1,14 +1,16 @@
-from ui.settings_ui.settings_window import SettingsWindowUi
-from PyQt6.QtCore import QSettings
+from PyQt6.QtCore import QSettings, Qt
 from PyQt6.QtWidgets import QWidget
+from ui import SettingsWindowUi
 
 
 class SettingsWizard:
 
-    """Класс, описывающий менеджер настроек приложения"""
+    """Класс, описывающий менеджер настроек приложения."""
 
     def __init__(self):
+        """Конструктор класса SettingsWizard."""
         self.window = QWidget()
+        self.window.setWindowModality(Qt.WindowModality.ApplicationModal)
         self.ui = SettingsWindowUi()
         self.ui.setupUi(self.window)
         self.settings = QSettings('parser_config.ini', QSettings.Format.IniFormat)
@@ -17,14 +19,17 @@ class SettingsWizard:
         self.read_settings()
 
     def show(self):
+        """Метод, отображающий окно настроек."""
         self.read_settings()
         self.window.show()
 
     def close(self):
+        """Метод, закрывающий окно настроек."""
         self.window.close()
         self.settings.sync()
 
     def save_settings(self):
+        """Метод, сохраняющий настройки в файл parser_config.ini."""
         self.settings.setValue(
             'auto_parse',
             self.ui.AutoParse.isChecked(),
@@ -37,6 +42,7 @@ class SettingsWizard:
         self.close()
 
     def read_settings(self):
+        """Метод, считывающий настройки из файла parser_config.ini."""
         if self.settings.value('auto_parse', type=bool):
             self.ui.AutoParse.setChecked(True)
         else:
@@ -45,3 +51,15 @@ class SettingsWizard:
             self.ui.UseProxies.setChecked(True)
         else:
             self.ui.UseProxies.setChecked(False)
+
+    def autoparse_enabled(self):
+        """Метод, получающий значение из настроек, отвечающее за автопарсинг при запуске.
+
+        Returns:
+             True: автопарсинг включен,
+             False: автопарсинг выключен.
+        """
+        if self.settings.value('auto_parse', type=bool):
+            return True
+        else:
+            return False
