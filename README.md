@@ -1,5 +1,5 @@
 # CourseWork
-  Документация(https://prytkovm.github.io/)
+  [Документация](https://prytkovm.github.io/).
 ## Демонстрация работы программы
 ### Обычная задача на парсинг
 
