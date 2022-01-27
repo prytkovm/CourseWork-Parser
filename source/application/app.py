@@ -152,7 +152,7 @@ class App:
                 table_row = []
                 for j in range(columns):
                     cell = self.main_window_ui.tableWidget.item(i, j).text()
-                    table_row.append(cell)
+                    table_row.append(f'"{cell}"')
                 table_row = (','.join(table_row) + '\n').encode('utf_8')
                 data.append(table_row)
             CsvWriter.write(path_to_file, header, data)
