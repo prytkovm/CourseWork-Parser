@@ -6,3 +6,4 @@ app_log.log
 parsed_data
 parsing_tasks
 build.py
+dist
