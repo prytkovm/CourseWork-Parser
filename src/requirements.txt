@@ -1,0 +1,5 @@
+PyQt6~=6.4.2
+Scrapy~=2.5.1
+pandas~=1.5.3
+Twisted~=22.10.0
+fake-useragent~=1.1.1

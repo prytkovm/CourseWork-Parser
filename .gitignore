@@ -1,0 +1,4 @@
+.idea
+venv
+parsed_data
+*.log
