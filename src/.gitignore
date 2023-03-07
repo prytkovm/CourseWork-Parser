@@ -1,9 +1,0 @@
-.idea
-**/__pycache__/
-ui_files
-venv
-app_log.log
-parsed_data
-parsing_tasks
-build.py
-dist
